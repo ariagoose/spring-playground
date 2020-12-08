@@ -39,4 +39,10 @@ public class EndpointsController {
         return "You just POSTed to /tasks";
     }
 
+    @RequestMapping("/math/volume/{l}/{w}/{h}")
+    public String requestVolume(@PathVariable int l, @PathVariable int w, @PathVariable int h ){
+        int volume = l * w * h;
+        return String.format("The volume of a %dx%dx%d rectangle is %d", l, w, h, volume);
+    }
+
 }

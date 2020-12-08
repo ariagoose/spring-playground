@@ -8,10 +8,9 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @WebMvcTest(EndpointsController.class)
 public class EndpointsControllerTest {
@@ -73,4 +72,31 @@ public class EndpointsControllerTest {
                 .andExpect(content().string("4 + 5 + 6 = 15"));
     }
 
+    @Test
+    public void testVolume() throws Exception {
+        int length = 3;
+        int width = 4;
+        int height = 5;
+
+        this.mvc.perform(get(String.format("/math/volume/%d/%d/%d", length, width, height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+
+        this.mvc.perform(post(String.format("/math/volume/%d/%d/%d", length, width, height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+
+        this.mvc.perform(patch(String.format("/math/volume/%d/%d/%d", length, width, height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+
+        this.mvc.perform(put(String.format("/math/volume/%d/%d/%d", length, width, height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+
+        this.mvc.perform(delete(String.format("/math/volume/%d/%d/%d", length, width, height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+
+    }
 }
