@@ -14,7 +14,7 @@ public class EndpointsController {
     }
 
     @GetMapping("/math/calculate")
-    public String getCalc(@RequestParam String operation, @RequestParam int x, @RequestParam int y){
+    public String getCalc(@RequestParam(value = "operation", defaultValue = "add") String operation, @RequestParam int x, @RequestParam int y){
         String result;
         int answer;
         String operand;
@@ -35,6 +35,11 @@ public class EndpointsController {
 
         result = x + operand + y + " = " + answer;
         return result;
+    }
+
+    @PostMapping("/math/sum")
+    public String postSum(){
+        return "";
     }
 
     @GetMapping("/")

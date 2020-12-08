@@ -60,5 +60,10 @@ public class EndpointsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("30 / 5 = 6"));
     }
+    @Test
+    public void testEmpty() throws Exception {
+        this.mvc.perform(get("/math/calculate?x=4&y=6"))
+                .andExpect(content().string("4 + 6 = 10"));
+    }
 
 }
