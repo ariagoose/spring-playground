@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -64,6 +65,12 @@ public class EndpointsControllerTest {
     public void testEmpty() throws Exception {
         this.mvc.perform(get("/math/calculate?x=4&y=6"))
                 .andExpect(content().string("4 + 6 = 10"));
+    }
+
+    @Test
+    public void testSum() throws Exception {
+        this.mvc.perform(post("/math/sum?n=4&n=5&n=6"))
+                .andExpect(content().string("4 + 5 + 6 = 15"));
     }
 
 }

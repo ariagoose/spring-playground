@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class EndpointsController {
@@ -38,8 +38,21 @@ public class EndpointsController {
     }
 
     @PostMapping("/math/sum")
-    public String postSum(){
-        return "";
+    public String postSum(@RequestParam Integer [] n){
+
+        Integer sum = 0;
+        String result = "";
+
+        for (int i = 0; i<n.length; i++){
+            sum += n[i];
+            if (i<n.length -1) {
+                result = result.concat(n[i] + " + ");
+            }else{
+                result = result.concat(n[i] + " = ");
+            }
+        }
+        result = result.concat(String.valueOf(sum));
+        return result;
     }
 
     @GetMapping("/")
