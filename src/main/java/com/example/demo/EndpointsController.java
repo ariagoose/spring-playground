@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EndpointsController {
 
+    @GetMapping("/math/pi")
+    public String getPi(){
+        return "3.141592653589793";
+    }
+
     @GetMapping("/")
     public String getIndex(){
         return "GET to index route";
