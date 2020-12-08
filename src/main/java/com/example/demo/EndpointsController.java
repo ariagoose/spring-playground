@@ -15,44 +15,13 @@ public class EndpointsController {
 
     @GetMapping("/math/calculate")
     public String getCalc(@RequestParam(value = "operation", defaultValue = "add") String operation, @RequestParam int x, @RequestParam int y){
-        String result;
-        int answer;
-        String operand;
-
-        if (operation.equals("divide")){
-            operand = " / ";
-            answer = x/y;
-        }else if (operation.equals("subtract")){
-            operand = " - ";
-            answer = x-y;
-        }else if (operation.equals("multiply")){
-            operand = " * ";
-            answer = x*y;
-        }else {
-            operand = " + ";
-            answer = x+y;
-        }
-
-        result = x + operand + y + " = " + answer;
-        return result;
+        return MathService.calculate(x, y, operation);
     }
 
     @PostMapping("/math/sum")
     public String postSum(@RequestParam Integer [] n){
 
-        Integer sum = 0;
-        String result = "";
-
-        for (int i = 0; i<n.length; i++){
-            sum += n[i];
-            if (i<n.length -1) {
-                result = result.concat(n[i] + " + ");
-            }else{
-                result = result.concat(n[i] + " = ");
-            }
-        }
-        result = result.concat(String.valueOf(sum));
-        return result;
+        return MathService.sum(n);
     }
 
     @GetMapping("/")
