@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,4 +46,10 @@ public class EndpointsController {
         return String.format("The volume of a %dx%dx%d rectangle is %d", l, w, h, volume);
     }
 
-}
+    @PostMapping(value = "/math/area", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String getArea(@RequestParam Map<String, String> formData){
+        return MathService.getArea(formData);
+    }
+
+
+ }

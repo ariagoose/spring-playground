@@ -3,10 +3,14 @@ package com.example.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+
+import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -98,5 +102,70 @@ public class EndpointsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
 
+    }
+
+    @Test
+    public void testAreaCircle() throws Exception {
+        double area;
+        String type;
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "circle")
+                .param("radius", "5");
+
+        area = (5^2) * Math.PI;
+        area = Math.round(area);
+        type = "circle";
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.format("The area of a %s with a radius of 5 is %.1f", type, area)));
+    }
+
+    @Test
+    public void testAreaRectangle() throws Exception {
+        int area;
+        int width;
+        int height;
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "rectangle")
+                .param("width", "5")
+                .param("height", "4");
+
+        width = 5;
+        height = 4;
+        area = width * height;
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.format("The area of a %dx%d rectangle is %d", width, height, area)));
+    }
+
+    @Test
+    public void testAreaRectangleError() throws Exception {
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "rectangle")
+                .param("radius", "5");
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
+    }
+
+    @Test
+    public void testAreaCircleError() throws Exception {
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "circle")
+                .param("width", "5")
+                .param("height", "4");
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
     }
 }

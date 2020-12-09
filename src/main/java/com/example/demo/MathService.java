@@ -1,6 +1,28 @@
 package com.example.demo;
 
+import java.util.Map;
+
 public class MathService {
+
+    public static String getArea(Map<String, String> formData){
+        String answer ="";
+
+        if (formData.get("type").equals("circle") && (formData.get("radius") != null)){
+            int rad = Integer.parseInt(formData.get("radius"));
+            double area = (rad^2) * Math.PI;
+            area = Math.round(area);
+            answer = "The area of a circle with a radius of " + rad + " is " + area;
+        }else if (formData.get("type").equals("rectangle") && (formData.get("width") != null) && (formData.get("height") != null)){
+            int width = Integer.parseInt(formData.get("width"));
+            int height = Integer.parseInt(formData.get("height"));
+            int area = width * height;
+            answer = "The area of a " + width + "x" + height + " rectangle is " + area;
+        }else{
+            answer = "Invalid";
+        }
+
+        return answer;
+    }
 
     public static String calculate (int x, int y, String operand){
         int answer = 0;
