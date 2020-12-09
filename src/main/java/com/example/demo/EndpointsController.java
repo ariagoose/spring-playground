@@ -4,10 +4,39 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @RestController
 public class EndpointsController {
+
+    @GetMapping("/flights/flight")
+    public Flight getFlight(){
+        Flight f = new Flight();
+        f.setDeparts(new Date(2017 - 1900, Calendar.APRIL, 21, 14+1, 34));
+        f.setTicket();
+        return f;
+    }
+
+    @GetMapping("/flights")
+    public List<Flight> getFlights(){
+        Flight f1 = new Flight();
+        f1.setDeparts(new Date(2017-1900, Calendar.APRIL, 21, 14+1, 34));
+        f1.setTicket();
+        f1.getTickets().get(0).getPassenger().setFirstName("Tom");
+        f1.getTickets().get(0).getPassenger().setLastName("Smith");
+
+
+
+        Flight f2 = new Flight();
+        f2.setDeparts(new Date(2017-1900, Calendar.APRIL, 21, 14+1, 34));
+        f2.setTicket();
+        f2.getTickets().get(0).getPassenger().setFirstName("Sara");
+        f2.getTickets().get(0).getPassenger().setLastName("Smith");
+
+
+        return Arrays.asList(f1, f2);
+    }
 
     @GetMapping("/math/pi")
     public String getPi(){

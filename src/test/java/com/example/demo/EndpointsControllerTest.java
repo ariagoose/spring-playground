@@ -13,14 +13,37 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.is;
 
 @WebMvcTest(EndpointsController.class)
 public class EndpointsControllerTest {
 
     @Autowired
     MockMvc mvc;
+
+    @Test
+    public void testFlights() throws Exception {
+        this.mvc.perform(
+                get("/flights/flight")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.departs", is("2017-04-21 14:34")))
+                .andExpect(jsonPath("$.tickets[0].cost", is(200)))
+                .andExpect(jsonPath("$.tickets[0].passenger.firstName", is("some name")));
+    }
+
+    @Test
+    public void testFlights2() throws Exception {
+        this.mvc.perform(
+                get("/flights")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].departs", is("2017-04-21 14:34")))
+                .andExpect(jsonPath("$[1].departs", is("2017-04-21 14:34")));
+    }
 
     @Test
     public void testPi() throws Exception{
