@@ -29,9 +29,9 @@ public class EndpointsControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.departs", is("2017-04-21 14:34")))
-                .andExpect(jsonPath("$.tickets[0].cost", is(200)))
-                .andExpect(jsonPath("$.tickets[0].passenger.firstName", is("some name")));
+                .andExpect(jsonPath("$.Departs", is("2017-04-21 14:34")))
+                .andExpect(jsonPath("$.Ticket[0].Price", is(200)))
+                .andExpect(jsonPath("$.Ticket[0].Passenger.FirstName", is("some name")));
     }
 
     @Test
@@ -41,8 +41,8 @@ public class EndpointsControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].departs", is("2017-04-21 14:34")))
-                .andExpect(jsonPath("$[1].departs", is("2017-04-21 14:34")));
+                .andExpect(jsonPath("$[0].Departs", is("2017-04-21 14:34")))
+                .andExpect(jsonPath("$[1].Departs", is("2017-04-21 14:34")));
     }
 
     @Test

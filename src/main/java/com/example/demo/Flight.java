@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
@@ -10,7 +11,9 @@ import java.util.List;
 
 public class Flight {
 
+    @JsonProperty("Departs")
     private Date departs;
+    @JsonProperty("Ticket")
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
     public void setTicket() {

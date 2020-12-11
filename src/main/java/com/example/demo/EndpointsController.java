@@ -10,6 +10,8 @@ import java.util.*;
 @RestController
 public class EndpointsController {
 
+    //@PostMapping("/flights/tickets/total")
+
     @GetMapping("/flights/flight")
     public Flight getFlight(){
         Flight f = new Flight();

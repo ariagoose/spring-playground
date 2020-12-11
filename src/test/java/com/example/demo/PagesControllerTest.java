@@ -17,12 +17,12 @@ public class PagesControllerTest {
     @Autowired
     MockMvc mvc;
 
-    @Test
+    /*@Test
     public void testHomepage() throws Exception{
         RequestBuilder request = MockMvcRequestBuilders.get("/");
 
         this.mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello from Spring!"));
-    }
+    }*/
 }
