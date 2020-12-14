@@ -2,7 +2,7 @@ package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/lessons")
@@ -43,6 +43,23 @@ public class LessonController {
         this.repository.save(updatedLes);
         return updatedLes;
 
+    }
+
+    @GetMapping("/find/{title}")
+    public Lesson read(@PathVariable String title){
+        return this.repository.findByTitle(title);
+    }
+
+    @GetMapping("/between")
+    public Iterable<Lesson> between(@RequestParam String date1, @RequestParam String date2){
+        /*List<Lesson> lessonList = new ArrayList<>();
+        (this.repository.findAll()).forEach(lesson -> {
+            if (lesson.getDeliveredOn().before(d1) && lesson.getDeliveredOn().after(d2)){
+                lessonList.add(lesson);
+            }
+        } );*/
+
+        return this.repository.findByDateBetween(date1, date2);
     }
 
 
