@@ -34,7 +34,16 @@ public class LessonController {
         this.repository.deleteById(id);
     }
 
+    @PatchMapping("/{id}")
+    public Lesson update(@PathVariable long id, @RequestBody Lesson lesson){
+        Optional<Lesson> lesArray = this.repository.findById(id);
+        Lesson updatedLes = lesArray.get();
+        updatedLes.setTitle(lesson.getTitle());
+        updatedLes.setDeliveredOn(lesson.getDeliveredOn());
+        this.repository.save(updatedLes);
+        return updatedLes;
 
+    }
 
 
 }
